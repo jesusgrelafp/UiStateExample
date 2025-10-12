@@ -10,14 +10,14 @@ import androidx.compose.ui.unit.sp
 import com.example.uistatesample.model.EjemploUiState
 
 @Composable
-fun ComponenteC(modifier: Modifier = Modifier,
-                uiState: EjemploUiState
+fun ComponenteC(estadoSwitch: Boolean,
+                modifier: Modifier = Modifier
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
-        Text(text = "Switch: ${uiState.estadoSwitch}", fontSize = 36.sp)
+        Text(text = "Switch: $estadoSwitch", fontSize = 36.sp)
     }
 }

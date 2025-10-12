@@ -14,24 +14,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.uistatesample.viewmodel.EjemploAppViewModel
-import com.example.uistatesample.ui.components.ComponenteA
-import com.example.uistatesample.ui.components.ComponenteB
-import com.example.uistatesample.ui.components.ComponenteC
+import com.example.uistatesample.ui.components.*
 
 @Preview (showBackground = true)
 @Composable
 fun PantallaPrincipal (modifier : Modifier = Modifier,
                        viewModel: EjemploAppViewModel = viewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+        //Escucha el estado del uiState y redibuja la UI cuando cambia
+        val uiState by viewModel.uiState.collectAsState()
     Column (
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.fillMaxHeight()
     ) {
-        ComponenteA(uiState = uiState, viewModel = viewModel,modifier = modifier.height(80.dp))
+        ComponenteA(estadoSwitch = uiState.estadoSwitch,
+                    onIncrementar = { viewModel.incrementar() },
+                    onSwitchChange = { viewModel.cambiarEstadoSwitch() },
+                    modifier = modifier.height(80.dp))
         Spacer(modifier.height(80.dp))
-        ComponenteB(uiState = uiState, modifier = modifier.height(80.dp))
-        ComponenteC(uiState = uiState, modifier = modifier.height(80.dp))
+        ComponenteB(contador = uiState.contador,
+                    modifier = modifier.height(80.dp))
+        ComponenteC(estadoSwitch = uiState.estadoSwitch,
+                    modifier = modifier.height(80.dp))
     }
 }

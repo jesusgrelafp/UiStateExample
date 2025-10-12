@@ -15,21 +15,22 @@ import com.example.uistatesample.viewmodel.EjemploAppViewModel
 import com.example.uistatesample.model.EjemploUiState
 
 @Composable
-fun ComponenteA(modifier: Modifier = Modifier,
-                uiState: EjemploUiState,
-                viewModel: EjemploAppViewModel
+fun ComponenteA(estadoSwitch: Boolean,
+                onIncrementar: () -> Unit,
+                onSwitchChange: () -> Unit,
+                modifier: Modifier = Modifier
 ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = modifier.fillMaxWidth()
         ) {
-            Button(onClick = { viewModel.sumaUno() }) {
+            Button(onClick = { onIncrementar() }) {
                 Text(text = "Suma +1", fontSize = 24.sp)
             }
             Switch(
-                checked = uiState.estadoSwitch,
-                onCheckedChange = { viewModel.cambiarEstadoSwitch() }
+                checked = estadoSwitch,
+                onCheckedChange = { onSwitchChange() }
             )
         }
 }

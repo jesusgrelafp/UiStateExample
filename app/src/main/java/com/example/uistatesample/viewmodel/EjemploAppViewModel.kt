@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.update
 class EjemploAppViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(EjemploUiState())
     val uiState : StateFlow<EjemploUiState> = _uiState.asStateFlow()
-    fun sumaUno() {
+    fun incrementar() {
         _uiState.update { estadoActual ->
             estadoActual.copy(contador = estadoActual.contador + 1)
         }

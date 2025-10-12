@@ -10,14 +10,14 @@ import androidx.compose.ui.unit.sp
 import com.example.uistatesample.model.EjemploUiState
 
 @Composable
-fun ComponenteB(modifier: Modifier = Modifier,
-                uiState: EjemploUiState
+fun ComponenteB(contador: Int,
+                modifier: Modifier = Modifier
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
-        Text(text = "Contador: ${uiState.contador}", fontSize = 36.sp)
+        Text(text = "Contador: $contador", fontSize = 36.sp)
     }
 }
