@@ -11,14 +11,13 @@ class EjemploAppViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(EjemploUiState())
     val uiState : StateFlow<EjemploUiState> = _uiState.asStateFlow()
     fun incrementar() {
-        _uiState.update { estadoActual ->
-            estadoActual.copy(contador = estadoActual.contador + 1)
-        }
+        _uiState.value = _uiState.value.copy(
+            contador = _uiState.value.contador + 1
+        )
     }
     fun cambiarEstadoSwitch() {
-        _uiState.update { estadoActual ->
-            estadoActual.copy(estadoSwitch = !estadoActual.estadoSwitch)
-        }
+        _uiState.value = _uiState.value.copy(
+            estadoSwitch = !_uiState.value.estadoSwitch
+        )
     }
-
 }
