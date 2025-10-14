@@ -57,6 +57,6 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
-    // Anhadido para el UiStateExample
+    // Añadido para el UiStateExample
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 }

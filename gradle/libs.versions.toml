@@ -8,6 +8,8 @@ espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.9.4"
 activityCompose = "1.11.0"
 composeBom = "2024.09.00"
+
+#Añadido para UiStateExample
 lifecycle = "2.9.4"
 
 [libraries]

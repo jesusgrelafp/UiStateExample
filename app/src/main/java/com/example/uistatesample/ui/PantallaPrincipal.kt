@@ -21,8 +21,16 @@ import com.example.uistatesample.ui.components.*
 fun PantallaPrincipal (modifier : Modifier = Modifier,
                        viewModel: EjemploAppViewModel = viewModel()
 ) {
-        //Escucha el estado del uiState y redibuja la UI cuando cambia
-        val uiState by viewModel.uiState.collectAsState()
+    /*---------------------------------------------------
+    Escucha el estado del uiState y redibuja la UI cuando cambia
+      - viewModel.uiState  esto accede al StateFlow que el ViewModel expone
+      - .collectAsState()   conecta tu flujo (Flow/StateFlow) con el
+        sistema reactivo de Compose. Cada vez que el StateFlow emite un nuevo valor,
+        Compose recompone automáticamente los elementos que usan ese valor.
+      - val uiState by   el operador by (delegación de propiedades).
+        Evita que tengamos que referencia con uiState.value.
+    -----------------------------------------------------*/
+    val uiState by viewModel.uiState.collectAsState()
     Column (
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
