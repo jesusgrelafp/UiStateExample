@@ -53,20 +53,28 @@ class EjemploAppViewModel : ViewModel() {
     }
 
     /*---------------------------------------------------------------
-     Alternativa a asignar _uiState.value directamente: la extensión update()
-     Ambas versiones crean el nuevo estado con copy(); cambia cómo se escribe.
-    
-     update() lee el valor actual, ejecuta la lambda y solo escribe si el valor
-     no ha cambiado mientras tanto (compare-and-set). Si ha cambiado, repite.
 
-     Ventajas:
-      - Atómica: si varias corrutinas actualizan el estado a la vez (por ejemplo,
-        desde Dispatchers.IO), no se pierde ninguna actualización.
-      - Más clara: lee el estado una sola vez (current) en lugar de varias
-        lecturas de _uiState.value.
-     Precaución:
-      - La lambda puede ejecutarse más de una vez: debe limitarse a calcular el
-        nuevo estado, sin efectos secundarios.
+    Alternativa a asignar _uiState.value directamente: la extensión update()
+    Ambas versiones crean el nuevo estado con copy(); lo que cambia es cómo se escribe.
+
+    Con asignación directa hay tres pasos separados: leer, copiar y escribir.
+    Si dos corrutinas en hilos distintos ejecutan incrementar() a la vez:
+      1.- Las dos leen contador = 5
+      2.- Las dos calculan 6
+      3.- Las dos escriben 6  --> Se ha perdido un incremento (debería ser 7)
+
+    update() comprueba antes de escribir que el valor no ha cambiado desde que lo leyó
+    (compare-and-set). Si ha cambiado, vuelve a ejecutar la lambda con el valor nuevo.
+
+    Ventajas:
+      - Atómica: evita pérdidas en actualizaciones concurrentes.
+      - Código más claro: lee el estado una sola vez (current) en lugar de
+        varias lecturas de _uiState.value
+
+    Precaución:
+      - La lambda puede ejecutarse más de una vez: debe limitarse a calcular
+        el nuevo estado, sin efectos secundarios (println, llamadas a red...).
+
     ---------------------------------------------------------------*/
     
     fun incrementarWithUpdate() {
