@@ -53,14 +53,22 @@ class EjemploAppViewModel : ViewModel() {
     }
 
     /*---------------------------------------------------------------
+     Alternativa a asignar _uiState.value directamente: la extensión update()
+     Ambas versiones crean el nuevo estado con copy(); cambia cómo se escribe.
+    
+     update() lee el valor actual, ejecuta la lambda y solo escribe si el valor
+     no ha cambiado mientras tanto (compare-and-set). Si ha cambiado, repite.
 
-    Kotlin Flow ofrece la extensión update que hace la actualización de forma segura
-     (internamente realiza un compare-and-set repetido hasta que tiene éxito)
      Ventajas:
-      - Atómica: evita pérdidas en actualizaciones concurrentes.
-      - Código más claro y evita lecturas repetidas de _uiState.value
-
+      - Atómica: si varias corrutinas actualizan el estado a la vez (por ejemplo,
+        desde Dispatchers.IO), no se pierde ninguna actualización.
+      - Más clara: lee el estado una sola vez (current) en lugar de varias
+        lecturas de _uiState.value.
+     Precaución:
+      - La lambda puede ejecutarse más de una vez: debe limitarse a calcular el
+        nuevo estado, sin efectos secundarios.
     ---------------------------------------------------------------*/
+    
     fun incrementarWithUpdate() {
         _uiState.update { current ->
             current.copy(contador = current.contador + 1)
